@@ -1,16 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
 public class PlayerControl : MonoBehaviour {
     Animator anim;
     int _isRunning = Animator.StringToHash("isRunning");
     public float speed;
     public int jumpPower = 1250;
 
+    public Sprite Idle;
+    public Sprite Crouch;
+
     private bool facingRight = false;
 
+    private bool crouching = false;
+
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         anim = GetComponent<Animator>();
     }
 	
@@ -22,28 +30,32 @@ public class PlayerControl : MonoBehaviour {
     void PlayerMove()
     {
         float x = Input.GetAxis("Horizontal");
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(9);
 
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
         }
-
-        if(x < 0.0f && facingRight == false)
+        if (Input.GetKey(KeyCode.S))
         {
-            anim.SetTrigger(_isRunning);
+            crouching = true;
+        }
+        else {
+            crouching = false;
+        }
+        if (crouching == true) {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = Crouch;
+        } else {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = Idle;
+        }
+        if (x < 0.0f && facingRight == false)
+        {
             FlipPlayer();
         }
         if(x > 0.0f && facingRight == true)
         {
-            anim.SetTrigger(_isRunning);
             FlipPlayer();
         }
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(x * speed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
-        if((x * speed) == 0)
-        {
-            anim.ResetTrigger(_isRunning);
-        }
     }
 
     void Jump()
