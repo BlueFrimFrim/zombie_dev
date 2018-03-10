@@ -69,6 +69,5 @@ public class PlayerControl : MonoBehaviour {
         Vector2 localScale = gameObject.transform.localScale;
         localScale.x *= (-1); // localScale.x = localScale.x * (-1);
         transform.localScale = localScale;
-
     }
 }
