@@ -8,28 +8,28 @@ public class Weapon : MonoBehaviour {
     public LayerMask NoHit;
 
     Transform FirePoint;
-	// Use this for initialization
-	void Start () {
-        FirePoint = FirePoint.transform.Find("Firepoint");
-        if(FirePoint == null) {
+    // Use this for initialization
+    void Awake() {
+        FirePoint = transform.Find("Firepoint");
+       if (FirePoint == null) {
             Debug.LogError("FirePoint: NULL");
-        }
+       }
+    }
 
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update() {
         if (Input.GetButtonDown("Fire1")) {
             Shoot();
         }
-	}
+    }
+
 
     void Shoot()
     {
         Debug.Log("Test: Shooting");
-        Vector3 FirePointPos = new Vector3(FirePoint.position.x, FirePoint.position.y, 0f);
-        RaycastHit2D hit = Physics2D.Raycast(FirePointPos, FirePoint.position - FirePointPos);
-        Debug.DrawRay(FirePointPos, FirePointPos, Color.cyan);
+        Vector2 FirePointPos = new Vector2(FirePoint.position.x, FirePoint.position.y);
+        Vector2 Direction = new Vector2(gameObject.GetComponent<Rigidbody2D>().position.x - 100, 0f);
+        RaycastHit2D hit = Physics2D.Raycast(FirePointPos, FirePoint.transform.right);
+        Debug.DrawLine(FirePointPos, Direction, Color.white);
     }
 }
