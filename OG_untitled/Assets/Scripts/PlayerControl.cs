@@ -6,18 +6,18 @@ using System.Collections;
 public class PlayerControl : MonoBehaviour {
     Animator anim;
     int _isRunning = Animator.StringToHash("isRunning");
-    public float speed;
+    //public float speed;
     public int jumpPower = 1250;
 
-    public Sprite Idle;
-    public Sprite Crouch;
+    public Sprite Testing;
 
     private bool facingRight = false;
 
-    private bool crouching = false;
     public LayerMask NoHit;
     Transform FirePoint;
-
+    #region Vars
+    public Vector2 Speed;
+    #endregion
     // Use this for initialization
     void Start ()
     {
@@ -44,6 +44,7 @@ public class PlayerControl : MonoBehaviour {
         {
             Jump();
         }
+#if false
         if (Input.GetKey(KeyCode.S))
         {
             crouching = true;
@@ -56,6 +57,7 @@ public class PlayerControl : MonoBehaviour {
         } else {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = Idle;
         }
+#endif
         if (x < 0.0f && facingRight == false)
         {
             FlipPlayer();
@@ -64,7 +66,7 @@ public class PlayerControl : MonoBehaviour {
         {
             FlipPlayer();
         }
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(x * speed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+        gameObject.GetComponent<Rigidbody2D>().velocity = Speed * x;// new Vector2(x * speed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
     }
 
     void Jump()
