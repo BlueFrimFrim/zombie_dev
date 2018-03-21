@@ -4,8 +4,7 @@ using System.Collections;
 
 
 public class PlayerControl : MonoBehaviour {
-    Animator anim;
-    int _isRunning = Animator.StringToHash("isRunning");
+
     //public float speed;
     public int jumpPower = 1250;
 
@@ -15,13 +14,13 @@ public class PlayerControl : MonoBehaviour {
 
     public LayerMask NoHit;
     Transform FirePoint;
+
     #region Vars
     public Vector2 Speed;
     #endregion
     // Use this for initialization
     void Start ()
     {
-        anim = GetComponent<Animator>();
         FirePoint = transform.Find("Firepoint");
         if (FirePoint == null) {
             Debug.LogError("FirePoint: NULL");
@@ -86,7 +85,7 @@ public class PlayerControl : MonoBehaviour {
     {
         Debug.Log("Test: Shooting");
         Vector2 FirePointPos = new Vector2(FirePoint.position.x, FirePoint.position.y);
-        Vector2 Direction = new Vector2(gameObject.GetComponent<Rigidbody2D>().position.x - 100, 0f);
+        Vector2 Direction = new Vector2(gameObject.GetComponent<Rigidbody2D>().position.x + 100, 0f);
         RaycastHit2D hit = Physics2D.Raycast(FirePointPos, FirePoint.transform.right);
         Debug.DrawLine(FirePointPos, Direction, Color.white);
     }
