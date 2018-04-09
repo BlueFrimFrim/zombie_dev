@@ -9,20 +9,17 @@ public class Enemy : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Enemy" && Lock == 0) {
-            Damage();
+        if(collision.gameObject.tag == "Enemy") {
+            Debug.Log("HIT");
         }
     }
 
     // Update is called once per frame
     void Update () {
-		if(Health <= 0) {
-            Destroy(gameObject);
-        }
+		
 	}
 
     private void Damage()
     {
-        --Health;
     }
 }
